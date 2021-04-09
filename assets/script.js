@@ -1,42 +1,67 @@
-function drawCalendar(birthday, lifespan)
+const timeSpans = [
+	{
+		from: 1093,
+		to: 1412,
+		title: "Střední",
+		color: "#0084ff"
+	}
+];
+
+// #0084ff
+// #44bec7
+// #ffc300
+// #fa3c4c
+// #d696bb
+// #d11141
+// #00b159
+// #00aedb
+// #f37735
+// #ffc425
+
+const now = Date.now();
+const birthday = new Date("1997-07-30");
+const lifespan = 80;
+const usedWeeks = Math.round((now - birthday) / 7 / 86400.0 / 1000.0);
+const allWeeks = lifespan * 52;
+
+const calendar = document.getElementById('calendar');
+
+for (let y = 1; y <= lifespan; y++)
 {
-	const now = Date.now()
-	const usedWeeks = Math.round((now - birthday) / 7 / 86400.0 / 1000.0)
-	const allWeeks = lifespan * 52
+	const year = document.createElement('div');
+	year.classList.add('year');
 
-	const calendar = document.getElementById('calendar')
-	while (calendar.firstChild)
+	if (y % 5 == 0)
 	{
-		calendar.removeChild(calendar.lastChild)
+		const yearLabel = document.createElement('span');
+		yearLabel.classList.add('year-label');
+		yearLabel.innerText = y.toString();
+		year.appendChild(yearLabel);
 	}
-	for (let y = 1; y <= lifespan; y++)
+
+	const weekList = document.createElement('ol');
+	weekList.classList.add('week-list');
+	for (let w = 0; w < 52; w++)
 	{
-		const year = document.createElement('div')
-		year.classList.add('year')
+		const week = document.createElement('li');
+		week.classList.add('week');
 
-		const yearLabel = document.createElement('span')
-		yearLabel.classList.add('year-label')
-		if (y % 5 == 0)
-		{
-			yearLabel.innerText = y.toString()
-		}
-		year.appendChild(yearLabel)
-
-		const weekList = document.createElement('ol')
-		weekList.classList.add('week-list')
-		for (let w = 0; w < 52; w++)
-		{
-			const week = document.createElement('li')
-			week.classList.add('week')
-			if (((y - 1) * 52 + w) < usedWeeks)
+		const id = (y - 1) * lifespan + (w + 1);
+		week.title = id;
+		timeSpans.forEach(span => {
+			if (id >= span.from && id <= span.to)
 			{
-				week.classList.add('spent')
+				week.style = `background: ${span.color}; border-color: ${span.color};`;
+				week.title = span.title;
 			}
-			weekList.appendChild(week)
-		}
-		year.appendChild(weekList)
-		calendar.appendChild(year)
-	}
-}
+		});
 
-drawCalendar(new Date("1997-07-30"), 90);
+		if (((y - 1) * 52 + w) < usedWeeks)
+		{
+			week.classList.add('spent');
+		}
+		weekList.appendChild(week);
+	}
+	year.appendChild(weekList);
+	calendar.appendChild(year);
+}
