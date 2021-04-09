@@ -1,22 +1,49 @@
+// Blue dark to light
+// #005073
+// #107dac
+// #189ad3
+// #1ebbd7
+// #71c7ec
+
+// Green dark to light
+// #234d20
+// #36802d
+// #77ab59
+// #c9df8a
+// #f0f7da
+
 const timeSpans = [
 	{
-		from: 1093,
-		to: 1412,
+		from: 105,
+		to: 260,
+		title: "Školka",
+		color: "#1ebbd7"
+	},
+	{
+		from: 261,
+		to: 728,
+		title: "Základní škola",
+		color: "#189ad3"
+	},
+	{
+		from: 729,
+		to: 936,
 		title: "Střední",
-		color: "#0084ff"
+		color: "#107dac"
+	},
+	{
+		from: 937,
+		to: 988,
+		title: "Vysoká",
+		color: "#005073"
+	},
+	{
+		from: 989,
+		to: Number.MAX_SAFE_INTEGER,
+		title: "Haug-land",
+		color: "#77ab59"
 	}
 ];
-
-// #0084ff
-// #44bec7
-// #ffc300
-// #fa3c4c
-// #d696bb
-// #d11141
-// #00b159
-// #00aedb
-// #f37735
-// #ffc425
 
 const now = Date.now();
 const birthday = new Date("1997-07-30");
@@ -46,17 +73,18 @@ for (let y = 1; y <= lifespan; y++)
 		const week = document.createElement('li');
 		week.classList.add('week');
 
-		const id = (y - 1) * lifespan + (w + 1);
-		week.title = id;
+		const spent = (y - 1) * 52 + w < usedWeeks;
+		const id = (y - 1) * 52 + (w + 1);
+		// week.title = id;
 		timeSpans.forEach(span => {
-			if (id >= span.from && id <= span.to)
+			if (spent && id >= span.from && id <= span.to)
 			{
 				week.style = `background: ${span.color}; border-color: ${span.color};`;
 				week.title = span.title;
 			}
 		});
 
-		if (((y - 1) * 52 + w) < usedWeeks)
+		if (spent)
 		{
 			week.classList.add('spent');
 		}
