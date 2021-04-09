@@ -47,18 +47,18 @@ const timeSpans = [
 
 const now = Date.now();
 const birthday = new Date("1997-07-30");
-const lifespan = 80;
+const lifespan = 85;
 const usedWeeks = Math.round((now - birthday) / 7 / 86400.0 / 1000.0);
 const allWeeks = lifespan * 52;
 
 const calendar = document.getElementById('calendar');
 
-for (let y = 1; y <= lifespan; y++)
+for (let y = 0; y <= lifespan - 1; y++)
 {
 	const year = document.createElement('div');
 	year.classList.add('year');
 
-	if (y % 5 == 0)
+	if (y > 0 && y % 5 == 0)
 	{
 		const yearLabel = document.createElement('span');
 		yearLabel.classList.add('year-label');
@@ -73,8 +73,8 @@ for (let y = 1; y <= lifespan; y++)
 		const week = document.createElement('li');
 		week.classList.add('week');
 
-		const spent = (y - 1) * 52 + w < usedWeeks;
-		const id = (y - 1) * 52 + (w + 1);
+		const spent = y * 52 + w < usedWeeks;
+		const id = y * 52 + (w + 1);
 		// week.title = id;
 		timeSpans.forEach(span => {
 			if (spent && id >= span.from && id <= span.to)
