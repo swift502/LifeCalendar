@@ -47,7 +47,7 @@ const timeSpans = [
 
 const now = Date.now();
 const birthday = new Date("1997-07-30");
-const lifespan = 85;
+const lifespan = 33;
 const usedWeeks = Math.round((now - birthday) / 7 / 86400.0 / 1000.0);
 const allWeeks = lifespan * 52;
 
