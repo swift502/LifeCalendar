@@ -50,6 +50,9 @@ const birthday = new Date("1997-07-30");
 const lifespan = 90;
 const europeMaleLifeExpectancy = 78.6;
 
+const currentWeekTitle = 'Current week';
+const expectancyTitle = 'Average male life expectancy in Europe';
+
 // Map the current date onto the same 52-weeks-per-year grid the calendar renders.
 // Counting real elapsed weeks (~52.18/year) drifts against the 52-square rows,
 // so instead measure full years of life plus the week within the current year.
@@ -111,13 +114,13 @@ for (let y = 0; y <= lifespan - 1; y++)
 		if (current)
 		{
 			week.classList.add('current');
-			week.title = 'Current week';
+			week.title = currentWeekTitle;
 		}
 
 		if (expectancy)
 		{
 			week.classList.add('expectancy');
-			week.title = `Average male life expectancy in Europe (${europeMaleLifeExpectancy} years)`;
+			week.title = expectancyTitle;
 		}
 		weekList.appendChild(week);
 	}
@@ -190,8 +193,8 @@ timeSpans.forEach(span => {
 legendContainer.appendChild(historyLegend);
 
 [
-	{ title: 'Current week', className: 'current-swatch' },
-	{ title: `Average male life expectancy in Europe`, className: 'expectancy-swatch' }
+	{ title: currentWeekTitle, className: 'current-swatch' },
+	{ title: expectancyTitle, className: 'expectancy-swatch' }
 ].forEach(marker => {
 	const item = document.createElement('div');
 	item.classList.add('legend-item');
