@@ -138,7 +138,7 @@ if (expectancyLabel)
 const metricNote = document.getElementById('metric-note');
 if (metricNote)
 {
-	metricNote.textContent = `* Weeks left and of life are measured against the ${europeMaleLifeExpectancy}-year average, not the ${lifespan}-year grid.`;
+	metricNote.textContent = `* Measured against a ${europeMaleLifeExpectancy} year life span expectancy.`;
 }
 
 const stats = [
