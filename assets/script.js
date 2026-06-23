@@ -138,7 +138,7 @@ if (expectancyLabel)
 const metricNote = document.getElementById('metric-note');
 if (metricNote)
 {
-	metricNote.textContent = `* Measured against a ${europeMaleLifeExpectancy} year life span expectancy.`;
+	metricNote.textContent = `* Measured against a ${europeMaleLifeExpectancy} year life span expectancy`;
 }
 
 const stats = [

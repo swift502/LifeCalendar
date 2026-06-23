@@ -8,6 +8,7 @@
 	--ink-faint: #8a96a8;
 	--line: #dde4ee;
 	--line-strong: #bec9d8;
+	--spent: #cdd6e3;
 	--current: #f5b301;
 	--current-soft: #fdeec2;
 	--expectancy: #e4513f;
@@ -45,7 +46,7 @@ body {
 
 .wrapper {
 	margin: 0 auto;
-	max-width: 820px;
+	max-width: 850px;
 }
 
 .header {
@@ -113,7 +114,7 @@ body {
 .calendar {
 	--week-size: clamp(5px, calc((100vw - 118px) / 64), 11px);
 	--week-gap: 3px;
-	padding: clamp(18px, 3vw, 28px) clamp(12px, 3vw, 24px) clamp(18px, 3vw, 26px) clamp(38px, 5vw, 48px);
+	padding: 48px 32px 48px 56px;
 	overflow-x: auto;
 	-webkit-overflow-scrolling: touch;
 	background:
@@ -178,6 +179,7 @@ body {
 
 .week.spent {
 	border-color: transparent;
+	background: var(--spent);
 }
 
 .week.current,
@@ -204,7 +206,7 @@ body {
 .legend {
 	display: grid;
 	gap: 12px;
-	margin-top: 22px;
+	margin-top: 38px;
 }
 
 .legend-row {
