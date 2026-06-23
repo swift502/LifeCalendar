@@ -111,7 +111,7 @@ for (let y = 0; y <= lifespan - 1; y++)
 		if (current)
 		{
 			week.classList.add('current');
-			week.title = 'This week';
+			week.title = 'Current week';
 		}
 
 		if (expectancy)
@@ -190,8 +190,8 @@ timeSpans.forEach(span => {
 legendContainer.appendChild(historyLegend);
 
 [
-	{ title: 'This week', className: 'current-swatch' },
-	{ title: `Average male life expectancy in Europe (${europeMaleLifeExpectancy} years)`, className: 'expectancy-swatch' }
+	{ title: 'Current week', className: 'current-swatch' },
+	{ title: `Average male life expectancy in Europe`, className: 'expectancy-swatch' }
 ].forEach(marker => {
 	const item = document.createElement('div');
 	item.classList.add('legend-item');
