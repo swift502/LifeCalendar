@@ -47,7 +47,7 @@ const timeSpans = [
 
 const now = new Date();
 const birthday = new Date("1997-07-30");
-const lifespan = 65;
+const lifespan = 90;
 
 // Map the current date onto the same 52-weeks-per-year grid the calendar renders.
 // Counting real elapsed weeks (~52.18/year) drifts against the 52-square rows,
@@ -87,9 +87,10 @@ for (let y = 0; y <= lifespan - 1; y++)
 		const week = document.createElement('li');
 		week.classList.add('week');
 
-		const spent = y * 52 + w < usedWeeks;
-		const id = y * 52 + (w + 1);
-		// week.title = id;
+		const index = y * 52 + w;
+		const spent = index < usedWeeks;
+		const current = index === usedWeeks;
+		const id = index + 1;
 		timeSpans.forEach(span => {
 			if (spent && id >= span.from && id <= span.to)
 			{
@@ -102,8 +103,64 @@ for (let y = 0; y <= lifespan - 1; y++)
 		{
 			week.classList.add('spent');
 		}
+
+		if (current)
+		{
+			week.classList.add('current');
+			week.title = 'This week';
+		}
 		weekList.appendChild(week);
 	}
 	year.appendChild(weekList);
 	calendar.appendChild(year);
 }
+
+// Live counters
+const weeksLeft = Math.max(0, allWeeks - usedWeeks);
+const percentLived = (usedWeeks / allWeeks) * 100;
+
+const lifespanLabel = document.getElementById('lifespan-label');
+if (lifespanLabel)
+{
+	lifespanLabel.textContent = lifespan.toString();
+}
+
+const stats = [
+	{ value: usedWeeks.toLocaleString(), label: 'weeks lived' },
+	{ value: weeksLeft.toLocaleString(), label: 'weeks left' },
+	{ value: `${percentLived.toFixed(1)}%`, label: 'of life' }
+];
+
+const statsContainer = document.getElementById('stats');
+stats.forEach(({ value, label }) => {
+	const stat = document.createElement('div');
+	stat.classList.add('stat');
+
+	const statValue = document.createElement('span');
+	statValue.classList.add('stat-value');
+	statValue.textContent = value;
+
+	const statLabel = document.createElement('span');
+	statLabel.classList.add('stat-label');
+	statLabel.textContent = label;
+
+	stat.append(statValue, statLabel);
+	statsContainer.appendChild(stat);
+});
+
+// Legend
+const legendContainer = document.getElementById('legend');
+timeSpans.forEach(span => {
+	const item = document.createElement('div');
+	item.classList.add('legend-item');
+
+	const swatch = document.createElement('span');
+	swatch.classList.add('legend-swatch');
+	swatch.style.background = span.color;
+
+	const label = document.createElement('span');
+	label.textContent = span.title;
+
+	item.append(swatch, label);
+	legendContainer.appendChild(item);
+});
