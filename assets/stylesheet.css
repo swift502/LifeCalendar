@@ -182,21 +182,6 @@ body {
 	background: var(--spent);
 }
 
-.week.current,
-.week.expectancy {
-	z-index: 4;
-}
-
-.week.current {
-	background: var(--current-soft);
-	border-color: var(--current);
-}
-
-.week.expectancy {
-	background: var(--expectancy-soft);
-	border-color: var(--expectancy);
-}
-
 .week:hover {
 	transform: scale(1.55);
 	box-shadow: var(--shadow-sm);
@@ -216,10 +201,6 @@ body {
 	gap: 10px 18px;
 }
 
-.marker-row {
-	padding-top: 4px;
-}
-
 .legend-item {
 	display: inline-flex;
 	align-items: center;
@@ -235,21 +216,6 @@ body {
 	border: 1px solid transparent;
 	border-radius: 3px;
 	flex-shrink: 0;
-}
-
-.legend-swatch.current-swatch,
-.legend-swatch.expectancy-swatch {
-	border-width: 1px;
-}
-
-.legend-swatch.current-swatch {
-	background: var(--current-soft);
-	border-color: var(--current);
-}
-
-.legend-swatch.expectancy-swatch {
-	background: var(--expectancy-soft);
-	border-color: var(--expectancy);
 }
 
 .footer {

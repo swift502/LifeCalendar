@@ -47,11 +47,7 @@ const timeSpans = [
 
 const now = new Date();
 const birthday = new Date("1997-07-30");
-const lifespan = 90;
 const europeMaleLifeExpectancy = 78.6;
-
-const currentWeekTitle = 'Current week';
-const expectancyTitle = 'Average male life expectancy in Europe';
 
 // Map the current date onto the same 52-weeks-per-year grid the calendar renders.
 // Counting real elapsed weeks (~52.18/year) drifts against the 52-square rows,
@@ -67,13 +63,12 @@ if (anniversary > now)
 const daysIntoYear = Math.floor((now - anniversary) / 86400000);
 const weekOfYear = Math.min(51, Math.floor(daysIntoYear / 7));
 const usedWeeks = age * 52 + weekOfYear;
-const allWeeks = lifespan * 52;
-const expectancyWeek = Math.min(allWeeks - 1, Math.round(europeMaleLifeExpectancy * 52) - 1);
-const expectancyWeeks = expectancyWeek + 1;
+const totalWeeks = Math.round(europeMaleLifeExpectancy * 52);
+const totalYears = Math.ceil(totalWeeks / 52);
 
 const calendar = document.getElementById('calendar');
 
-for (let y = 0; y <= lifespan - 1; y++)
+for (let y = 0; y < totalYears; y++)
 {
 	const year = document.createElement('div');
 	year.classList.add('year');
@@ -90,13 +85,16 @@ for (let y = 0; y <= lifespan - 1; y++)
 	weekList.classList.add('week-list');
 	for (let w = 0; w < 52; w++)
 	{
+		const index = y * 52 + w;
+		if (index >= totalWeeks)
+		{
+			break;
+		}
+
 		const week = document.createElement('li');
 		week.classList.add('week');
 
-		const index = y * 52 + w;
 		const spent = index < usedWeeks;
-		const current = index === usedWeeks;
-		const expectancy = index === expectancyWeek;
 		const id = index + 1;
 		timeSpans.forEach(span => {
 			if (spent && id >= span.from && id <= span.to)
@@ -111,17 +109,6 @@ for (let y = 0; y <= lifespan - 1; y++)
 			week.classList.add('spent');
 		}
 
-		if (current)
-		{
-			week.classList.add('current');
-			week.title = currentWeekTitle;
-		}
-
-		if (expectancy)
-		{
-			week.classList.add('expectancy');
-			week.title = expectancyTitle;
-		}
 		weekList.appendChild(week);
 	}
 	year.appendChild(weekList);
@@ -129,8 +116,8 @@ for (let y = 0; y <= lifespan - 1; y++)
 }
 
 // Live counters
-const weeksLeft = Math.max(0, expectancyWeeks - usedWeeks);
-const percentLived = Math.min(100, (usedWeeks / expectancyWeeks) * 100);
+const weeksLeft = Math.max(0, totalWeeks - usedWeeks);
+const percentLived = Math.min(100, (usedWeeks / totalWeeks) * 100);
 
 const expectancyLabel = document.getElementById('expectancy-label');
 if (expectancyLabel)
@@ -141,13 +128,13 @@ if (expectancyLabel)
 const metricNote = document.getElementById('metric-note');
 if (metricNote)
 {
-	metricNote.textContent = `* Measured against a ${europeMaleLifeExpectancy} year life span expectancy`;
+	metricNote.textContent = `Spans across a ${europeMaleLifeExpectancy} year EU male life expectancy`;
 }
 
 const stats = [
 	{ value: usedWeeks.toLocaleString(), label: 'weeks lived' },
-	{ value: weeksLeft.toLocaleString(), label: 'weeks left*' },
-	{ value: `${percentLived.toFixed(1)}%`, label: 'of life*' }
+	{ value: weeksLeft.toLocaleString(), label: 'weeks left' },
+	{ value: `${percentLived.toFixed(1)}%`, label: 'of life' }
 ];
 
 const statsContainer = document.getElementById('stats');
@@ -172,9 +159,6 @@ const legendContainer = document.getElementById('legend');
 const historyLegend = document.createElement('div');
 historyLegend.classList.add('legend-row');
 
-const markerLegend = document.createElement('div');
-markerLegend.classList.add('legend-row', 'marker-row');
-
 timeSpans.forEach(span => {
 	const item = document.createElement('div');
 	item.classList.add('legend-item');
@@ -191,22 +175,3 @@ timeSpans.forEach(span => {
 });
 
 legendContainer.appendChild(historyLegend);
-
-[
-	{ title: currentWeekTitle, className: 'current-swatch' },
-	{ title: expectancyTitle, className: 'expectancy-swatch' }
-].forEach(marker => {
-	const item = document.createElement('div');
-	item.classList.add('legend-item');
-
-	const swatch = document.createElement('span');
-	swatch.classList.add('legend-swatch', marker.className);
-
-	const label = document.createElement('span');
-	label.textContent = marker.title;
-
-	item.append(swatch, label);
-	markerLegend.appendChild(item);
-});
-
-legendContainer.appendChild(markerLegend);
