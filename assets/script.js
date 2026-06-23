@@ -118,6 +118,7 @@ for (let y = 0; y < totalYears; y++)
 // Live counters
 const weeksLeft = Math.max(0, totalWeeks - usedWeeks);
 const percentLived = Math.min(100, (usedWeeks / totalWeeks) * 100);
+const summersLeft = Math.max(0, totalYears - age);
 
 const expectancyLabel = document.getElementById('expectancy-label');
 if (expectancyLabel)
@@ -134,6 +135,7 @@ if (metricNote)
 const stats = [
 	{ value: usedWeeks.toLocaleString(), label: 'weeks lived' },
 	{ value: weeksLeft.toLocaleString(), label: 'weeks left' },
+	{ value: summersLeft.toLocaleString(), label: 'summers left' },
 	{ value: `${Math.round(percentLived)}%`, label: 'of life' }
 ];
 
