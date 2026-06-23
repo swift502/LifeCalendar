@@ -134,7 +134,7 @@ if (metricNote)
 const stats = [
 	{ value: usedWeeks.toLocaleString(), label: 'weeks lived' },
 	{ value: weeksLeft.toLocaleString(), label: 'weeks left' },
-	{ value: `${percentLived.toFixed(1)}%`, label: 'of life' }
+	{ value: `${Math.round(percentLived)}%`, label: 'of life' }
 ];
 
 const statsContainer = document.getElementById('stats');
