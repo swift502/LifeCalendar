@@ -40,15 +40,29 @@ const timeSpans = [
 	{
 		from: 989,
 		to: Number.MAX_SAFE_INTEGER,
-		title: "Haug-land",
+		title: "Práce",
 		color: "#77ab59"
 	}
 ];
 
-const now = Date.now();
+const now = new Date();
 const birthday = new Date("1997-07-30");
 const lifespan = 65;
-const usedWeeks = Math.round((now - birthday) / 7 / 86400.0 / 1000.0);
+
+// Map the current date onto the same 52-weeks-per-year grid the calendar renders.
+// Counting real elapsed weeks (~52.18/year) drifts against the 52-square rows,
+// so instead measure full years of life plus the week within the current year.
+let age = now.getFullYear() - birthday.getFullYear();
+const anniversary = new Date(birthday);
+anniversary.setFullYear(birthday.getFullYear() + age);
+if (anniversary > now)
+{
+	age--;
+	anniversary.setFullYear(birthday.getFullYear() + age);
+}
+const daysIntoYear = Math.floor((now - anniversary) / 86400000);
+const weekOfYear = Math.min(51, Math.floor(daysIntoYear / 7));
+const usedWeeks = age * 52 + weekOfYear;
 const allWeeks = lifespan * 52;
 
 const calendar = document.getElementById('calendar');
