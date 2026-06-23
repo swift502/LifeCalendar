@@ -47,7 +47,7 @@ const timeSpans = [
 
 const now = new Date();
 const birthday = new Date("1997-07-30");
-const europeMaleLifeExpectancy = 78.6;
+const europeMaleLifeExpectancy = 78;
 
 // Map the current date onto the same 52-weeks-per-year grid the calendar renders.
 // Counting real elapsed weeks (~52.18/year) drifts against the 52-square rows,
