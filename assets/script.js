@@ -126,12 +126,6 @@ if (expectancyLabel)
 	expectancyLabel.textContent = europeMaleLifeExpectancy.toString();
 }
 
-const metricNote = document.getElementById('metric-note');
-if (metricNote)
-{
-	metricNote.textContent = `Spans across a ${europeMaleLifeExpectancy} year EU male life expectancy`;
-}
-
 const stats = [
 	{ value: usedWeeks.toLocaleString(), label: 'weeks lived' },
 	{ value: weeksLeft.toLocaleString(), label: 'weeks left' },
